@@ -5,7 +5,7 @@ start(Kind, Stock) ->
   spawn_link(?MODULE, start_proc, [Kind, Stock]).
 
 start_proc(Kind, Stock) ->
-  register(Kind, self()),
+  register(atom_to_name(Kind), self()),
   io:format("Starting ~p storage~n", [Kind]),
   store(Kind, Stock).
 
@@ -33,21 +33,24 @@ store(Kind, Stock) ->
   end.
 
 get(Kind, Amount) ->
-  Kind ! {get, Amount, self()},
+  atom_to_name(Kind) ! {get, Amount, self()},
   receive
     ok -> true;
     error -> false
   end.
 
 add(Kind, Amount) ->
-  Kind ! {add, Amount},
+  atom_to_name(Kind) ! {add, Amount},
   ok.
 
 remaining(Kind) ->
-  Kind ! {remaining, self()},
+  atom_to_name(Kind) ! {remaining, self()},
   receive
     Amount -> Amount
   end.
 
 stop(Kind) ->
-  Kind ! {stop}.
+  atom_to_name(Kind) ! {stop}.
+
+atom_to_name(Atom) ->
+  list_to_atom(atom_to_list(Atom) ++ "_storage").
