@@ -1,0 +1,2 @@
+-record (point, {x, y, z}).
+-record (line, {function, slope}).

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+erlc *.erl
+erl -noshell -s test test -s init stop
+
