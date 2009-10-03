@@ -14,9 +14,9 @@ line_slope_test_() -> [
 line_from_points_test() ->
   Line = line:new(point:new(50,200), point:new(150,400)),
   ?assertEqual(2.0, line:slope(Line)),
-  ?assertEqual(108.0, line:slope_intercept(Line, 4)).
+  ?assertEqual(108.0, line:y_value(Line, 4)).
 
-% line_intersect_test_() -> [
-%   ?_assert(line:intersect(line:new(2,3,3), line:new(-1,3,-6))),
-%   ?_assertEqual(overlap, line:intersect(line:new(-3,6,6), line:new(-1,2,2))),
-%   ?_assertNot(line:intersect(line:new(-1,2,2), line:new(-1,2,-2)))].
+line_intersect_test_() -> [
+  ?_assertEqual(point:new(3.0,-1.0), line:intersect(line:new(2,3,3), line:new(-1,3,-6))),
+  ?_assertEqual(overlap, line:intersect(line:new(-3,6,6), line:new(-1,2,2))),
+  ?_assertNot(line:intersect(line:new(-1,2,2), line:new(-1,2,-2)))].
