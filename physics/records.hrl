@@ -1,2 +1,3 @@
 -record (point, {x, y}).
 -record (line, {function, slope}).
+-record (circle, {center = #point{}, radius}).
